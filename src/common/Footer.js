@@ -1,5 +1,5 @@
 export const Footer = {
-  getHtml: async () => {
+  getHtml: () => {
     return /*html*/ `
       <div>
           <footer class="bg-gray-200 p-4 text-center">

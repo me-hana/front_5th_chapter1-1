@@ -1,5 +1,5 @@
 export const Header = {
-  getHtml: async () => {
+  getHtml: () => {
     const path = location.pathname;
 
     return /*html*/ `
