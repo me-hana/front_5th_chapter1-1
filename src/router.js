@@ -17,9 +17,15 @@ export const routes = {
 // router: URL에 맞는 View로 변경
 export const router = async () => {
   const path = location.pathname;
-  const PageComponent = routes[path] || NotFoundPage;
-  const pageHtml = await PageComponent();
+  const Page = routes[path] || NotFoundPage;
+  const pageHtml = await Page.getHtml();
+
   document.querySelector("#root").innerHTML = pageHtml;
+
+  // Page컴포넌트에 afterRender가 있는 경우 실행
+  if (typeof Page.afterRender === "function") {
+    Page.afterRender();
+  }
 };
 
 // setupRouter: 이벤트 바인딩과 초기 라우팅을 위함

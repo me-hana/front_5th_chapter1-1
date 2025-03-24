@@ -1,8 +1,16 @@
 import { Footer } from "../common/Footer";
 import { Header } from "../common/Header";
 
-export const ProfilePage = () => {
-  return /*html*/ `
+export const ProfilePage = {
+  getHtml: async () => {
+    let userInfo = {
+      name: "",
+      email: "",
+      bio: "",
+      ...JSON.parse(localStorage.getItem("userInfo") || "{}"),
+    };
+
+    return /*html*/ `
   <div id="root">
     <div class="bg-gray-100 min-h-screen flex justify-center">
       <div class="max-w-md w-full">
@@ -23,7 +31,7 @@ export const ProfilePage = () => {
                   type="text"
                   id="username"
                   name="username"
-                  value="홍길동"
+                  value="${userInfo.name}"
                   class="w-full p-2 border rounded"
                 />
               </div>
@@ -37,7 +45,7 @@ export const ProfilePage = () => {
                   type="email"
                   id="email"
                   name="email"
-                  value="hong@example.com"
+                  value="${userInfo.email}"
                   class="w-full p-2 border rounded"
                 />
               </div>
@@ -52,11 +60,10 @@ export const ProfilePage = () => {
                   name="bio"
                   rows="4"
                   class="w-full p-2 border rounded"
-                >
-안녕하세요, 항해플러스에서 열심히 공부하고 있는 홍길동입니다.</textarea
-                >
+                >${userInfo.bio}</textarea>
               </div>
               <button
+                id="update-profile"
                 type="submit"
                 class="w-full bg-blue-600 text-white p-2 rounded font-bold"
               >
@@ -71,4 +78,12 @@ export const ProfilePage = () => {
     </div>
   </div>
 `;
+  },
+
+  afterRender: () => {
+    const btnUpdate = document.querySelector("#update-profile");
+    btnUpdate.addEventListener("click", function () {
+      console.log("버튼이 클릭되었습니다!");
+    });
+  },
 };
