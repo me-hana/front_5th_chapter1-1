@@ -1,7 +1,7 @@
 import { MainPage } from "./view/MainPage";
 import { LoginPage } from "./view/LoginPage";
 import { ProfilePage } from "./view/ProfilePage";
-import { ErrorPage } from "./view/ErrorPage";
+import { NotFoundPage } from "./view/NotFoundPage";
 
 function navigateTo(url) {
   history.pushState(null, null, url);
@@ -17,7 +17,7 @@ export const routes = {
 // router: URL에 맞는 View로 변경
 export const router = async () => {
   const path = location.pathname;
-  const PageComponent = routes[path] || ErrorPage;
+  const PageComponent = routes[path] || NotFoundPage;
   const pageHtml = await PageComponent();
   document.querySelector("#root").innerHTML = pageHtml;
 };
