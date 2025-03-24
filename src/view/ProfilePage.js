@@ -20,7 +20,7 @@ export const ProfilePage = {
             <h2 class="text-2xl font-bold text-center text-blue-600 mb-8">
               내 프로필
             </h2>
-            <form>
+            <form id="profile-form">
               <div class="mb-4">
                 <label
                   for="username"
@@ -81,9 +81,19 @@ export const ProfilePage = {
   },
 
   afterRender: () => {
-    const btnUpdate = document.querySelector("#update-profile");
-    btnUpdate.addEventListener("click", function () {
-      console.log("버튼이 클릭되었습니다!");
+    const form = document.querySelector("#profile-form");
+
+    form?.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const name = document.querySelector("#username")?.value.trim() || "";
+      const email = document.querySelector("#email")?.value.trim() || "";
+      const bio = document.querySelector("#bio")?.value.trim() || "";
+
+      const userInfo = { name, email, bio };
+      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+
+      alert("프로필이 업데이트 되었습니다.");
     });
   },
 };
