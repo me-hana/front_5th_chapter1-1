@@ -1,5 +1,6 @@
 import { Footer } from "../common/Footer";
 import { Header } from "../common/Header";
+import { getUserInfo } from "../util/store";
 
 export const ProfilePage = {
   getHtml: async () => {
@@ -90,7 +91,7 @@ export const ProfilePage = {
       const email = document.querySelector("#email")?.value.trim() || "";
       const bio = document.querySelector("#bio")?.value.trim() || "";
 
-      const userInfo = { name, email, bio };
+      const userInfo = { ...getUserInfo(), name, email, bio };
       localStorage.setItem("userInfo", JSON.stringify(userInfo));
 
       alert("프로필이 업데이트 되었습니다.");

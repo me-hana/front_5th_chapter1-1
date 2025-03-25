@@ -1,13 +1,16 @@
-import { setUser, isLoggedIn } from "../util/store";
+import { router } from "../router";
+import { setUserInfo, isLoggedIn, getUserInfo } from "../util/store";
 
 export const LoginPage = {
   getHtml: async () => {
     if (isLoggedIn()) {
+      history.pushState(null, null, "/");
+      router();
       // alert("이미 로그인된 사용자입니다.");
     }
 
     let userInfo = {
-      email: "",
+      name: "",
       pw: "",
     };
 
@@ -17,7 +20,7 @@ export const LoginPage = {
         <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">항해플러스</h1>
         <form id="login-form">
           <div class="mb-4">
-            <input id="login-email" type="text" placeholder="이메일 또는 전화번호" class="w-full p-2 border rounded" value="${userInfo.email}">
+            <input id="login-name" type="text" placeholder="이메일 또는 전화번호" class="w-full p-2 border rounded" value="${userInfo.name}">
           </div>
           <div class="mb-6">
             <input id="login-password" type="password" placeholder="비밀번호" class="w-full p-2 border rounded" value="${userInfo.pw}">
@@ -41,19 +44,20 @@ export const LoginPage = {
     form?.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const email = document.querySelector("#login-email")?.value.trim() || "";
+      const name = document.querySelector("#login-name")?.value.trim() || "";
       const pw = document.querySelector("#login-pw")?.value.trim() || "";
 
       const userInfo = {
-        ...JSON.parse(localStorage.getItem("userInfo")),
-        email,
+        ...getUserInfo(),
+        name,
         pw,
       };
 
-      setUser(userInfo);
+      setUserInfo(userInfo);
 
       alert("로그인 되었습니다.");
-      history.replaceState(null, null, "/");
+      history.pushState(null, null, "/");
+      router();
     });
   },
 };

@@ -1,14 +1,8 @@
 import { Header } from "../common/Header";
 import { Footer } from "../common/Footer";
-import { state } from "../util/store";
 
 export const MainPage = {
   getHtml: async () => {
-    if (!state.isLogin) {
-      alert("로그인된 사용자만 이용할 수 있습니다.");
-      history.replaceState(null, null, "/login");
-    }
-
     return /*html*/ `
   <div class="bg-gray-100 min-h-screen flex justify-center">
     <div class="max-w-md w-full">

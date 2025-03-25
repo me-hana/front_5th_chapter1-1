@@ -1,6 +1,27 @@
+import { router } from "../router";
+import { setUserInfo, state } from "../util/store";
+
 export const Header = {
   getHtml: () => {
     const path = location.pathname;
+    const isLoggedIn = state.userInfo;
+
+    const handleClick = (event) => {
+      if (event.target.id === "nav-logout") {
+        event.preventDefault();
+        setUserInfo(null);
+        history.pushState(null, null, "/login");
+        router();
+        // console.log("Button clicked", event);  // 이 주석 풀면 로그가 2번 찍히는데 왜 그런걸까?
+      }
+    };
+    document.addEventListener("click", handleClick);
+
+    const loggedInNav = isLoggedIn
+      ? /*html*/ `
+              <li><a href="/profile" data-link class=${path === "/profile" ? "text-blue-600" : "text-gray-600"}>프로필</a></li>
+              <li><a href="#" id="nav-logout" class="text-gray-600">로그아웃</a></li>`
+      : /*html*/ `<li><a href="/login" data-link class=${path === "/login" ? "text-blue-600" : "text-gray-600"}>로그인</a></li>`;
 
     return /*html*/ `
       <div>
@@ -10,8 +31,7 @@ export const Header = {
           <nav class="bg-white shadow-md p-2 sticky top-14">
             <ul class="flex justify-around">
               <li><a href="/" data-link class=${path === "/" ? "text-blue-600" : "text-gray-600"}>홈</a></li>
-              <li><a href="/profile" data-link class=${path === "/profile" ? "text-blue-600" : "text-gray-600"}>프로필</a></li>
-              <li><a href="#" data-link class="text-gray-600">로그아웃</a></li>
+              ${loggedInNav}
             </ul>
           </nav>
       </div>
