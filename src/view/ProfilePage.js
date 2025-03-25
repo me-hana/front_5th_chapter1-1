@@ -1,14 +1,22 @@
 import { Footer } from "../common/Footer";
 import { Header } from "../common/Header";
-import { getUserInfo } from "../util/store";
+import { getUser, state } from "../util/store";
+import { router } from "../router";
 
 export const ProfilePage = {
-  getHtml: async () => {
-    let userInfo = {
-      name: "",
+  getHtml: () => {
+    const isLoggedIn = state.user;
+
+    if (!isLoggedIn) {
+      history.pushState(null, null, "/login");
+      router();
+    }
+
+    let user = {
+      username: "",
       email: "",
       bio: "",
-      ...JSON.parse(localStorage.getItem("userInfo") || "{}"),
+      ...state.user,
     };
 
     return /*html*/ `
@@ -32,7 +40,7 @@ export const ProfilePage = {
                   type="text"
                   id="username"
                   name="username"
-                  value="${userInfo.name}"
+                  value="${user.username}"
                   class="w-full p-2 border rounded"
                 />
               </div>
@@ -46,7 +54,7 @@ export const ProfilePage = {
                   type="email"
                   id="email"
                   name="email"
-                  value="${userInfo.email}"
+                  value="${user.email}"
                   class="w-full p-2 border rounded"
                 />
               </div>
@@ -61,7 +69,7 @@ export const ProfilePage = {
                   name="bio"
                   rows="4"
                   class="w-full p-2 border rounded"
-                >${userInfo.bio}</textarea>
+                >${user.bio}</textarea>
               </div>
               <button
                 id="update-profile"
@@ -87,12 +95,12 @@ export const ProfilePage = {
     form?.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const name = document.querySelector("#username")?.value.trim() || "";
+      const username = document.querySelector("#username")?.value.trim() || "";
       const email = document.querySelector("#email")?.value.trim() || "";
       const bio = document.querySelector("#bio")?.value.trim() || "";
 
-      const userInfo = { ...getUserInfo(), name, email, bio };
-      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+      const user = { ...getUser(), username, email, bio };
+      localStorage.setItem("user", JSON.stringify(user));
 
       alert("프로필이 업데이트 되었습니다.");
     });

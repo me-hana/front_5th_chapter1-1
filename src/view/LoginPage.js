@@ -1,17 +1,17 @@
 import { router } from "../router";
-import { setUserInfo, isLoggedIn, getUserInfo } from "../util/store";
+import { setUser, isLoggedIn } from "../util/store";
 
 export const LoginPage = {
-  getHtml: async () => {
+  getHtml: () => {
     if (isLoggedIn()) {
       history.pushState(null, null, "/");
       router();
       // alert("이미 로그인된 사용자입니다.");
     }
 
-    let userInfo = {
-      name: "",
-      pw: "",
+    let user = {
+      username: "",
+      password: "",
     };
 
     return /*html*/ `
@@ -20,10 +20,10 @@ export const LoginPage = {
         <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">항해플러스</h1>
         <form id="login-form">
           <div class="mb-4">
-            <input id="login-name" type="text" placeholder="이메일 또는 전화번호" class="w-full p-2 border rounded" value="${userInfo.name}">
+            <input id="username" type="text" placeholder="이메일 또는 전화번호" class="w-full p-2 border rounded" value="${user.username}">
           </div>
           <div class="mb-6">
-            <input id="login-password" type="password" placeholder="비밀번호" class="w-full p-2 border rounded" value="${userInfo.pw}">
+            <input id="password" type="password" placeholder="비밀번호" class="w-full p-2 border rounded" value="${user.password}">
           </div>
           <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded font-bold">로그인</button>
         </form>
@@ -44,18 +44,17 @@ export const LoginPage = {
     form?.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const name = document.querySelector("#login-name")?.value.trim() || "";
-      const pw = document.querySelector("#login-pw")?.value.trim() || "";
+      const username = document.querySelector("#username")?.value.trim() || "";
+      // const password = document.querySelector("#password")?.value.trim() || "";
 
-      const userInfo = {
-        ...getUserInfo(),
-        name,
-        pw,
+      const user = {
+        username,
+        email: "",
+        bio: "",
       };
 
-      setUserInfo(userInfo);
+      setUser(user);
 
-      alert("로그인 되었습니다.");
       history.pushState(null, null, "/");
       router();
     });

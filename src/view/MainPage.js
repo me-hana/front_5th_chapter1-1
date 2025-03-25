@@ -2,7 +2,7 @@ import { Header } from "../common/Header";
 import { Footer } from "../common/Footer";
 
 export const MainPage = {
-  getHtml: async () => {
+  getHtml: () => {
     return /*html*/ `
   <div class="bg-gray-100 min-h-screen flex justify-center">
     <div class="max-w-md w-full">

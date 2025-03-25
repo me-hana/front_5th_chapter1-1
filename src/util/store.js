@@ -1,25 +1,25 @@
 export const state = {
-  userInfo: localStorage.getItem("userInfo")
-    ? JSON.parse(localStorage.getItem("userInfo"))
+  user: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
     : null,
 };
 
-export const setUserInfo = (userInfo) => {
-  if (userInfo) {
-    state.userInfo = { ...state.userInfo, ...userInfo };
-    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+export const setUser = (user) => {
+  if (user) {
+    state.user = { ...state.user, ...user };
+    localStorage.setItem("user", JSON.stringify(user));
   } else {
-    state.userInfo = null;
-    localStorage.removeItem("userInfo");
+    state.user = null;
+    localStorage.removeItem("user");
   }
 };
 
-export const getUserInfo = () => {
-  if (state.userInfo) {
-    return state.userInfo;
+export const getUser = () => {
+  if (state.user) {
+    return state.user;
   } else return null;
 };
 
 export const isLoggedIn = () => {
-  return state.userInfo ? true : false;
+  return state.user ? true : false;
 };

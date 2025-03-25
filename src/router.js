@@ -15,10 +15,10 @@ export const routes = {
 };
 
 // router: URL에 맞는 View로 변경
-export const router = async () => {
+export const router = () => {
   const path = location.pathname;
   const Page = routes[path] || NotFoundPage;
-  const pageHtml = await Page.getHtml();
+  const pageHtml = Page.getHtml();
 
   document.querySelector("#root").innerHTML = pageHtml;
 
@@ -44,13 +44,12 @@ export const setupRouter = () => {
   router();
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  document.body.addEventListener("click", (e) => {
-    if (e.target.matches("[data-link]")) {
-      e.preventDefault();
-      navigateTo(e.target.href);
-      router();
-    }
-  });
-  router();
+window.addEventListener("popstate", setupRouter);
+document.addEventListener("DOMContentLoaded", setupRouter);
+document.body.addEventListener("click", (e) => {
+  if (e.target.matches("[data-link]")) {
+    e.preventDefault();
+    navigateTo(e.target.href);
+    router();
+  }
 });
