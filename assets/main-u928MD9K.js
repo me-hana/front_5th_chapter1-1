@@ -5,7 +5,7 @@
           </footer>
         </div>
     `},i="/front_5th_chapter1-1/",p=()=>{const t=location.hash,l=JSON.parse(localStorage.getItem("user")),o=e=>t===e?"text-blue-600 font-bold":"text-gray-600",r=l?`
-              <li><a href="${i}#/profile"data-link class="${o("#/profile")}">프로필</a></li>
+              <li><a href="${i}#/profile" data-link class="${o("#/profile")}">프로필</a></li>
               <li><a href="#" id="logout" class="text-gray-600">로그아웃</a></li>`:`<li><a href="${i}#/login" data-link class="text-gray-600">로그인</a></li>`;return`
 <div>
           <header class="bg-blue-600 text-white p-4 sticky top-0">
