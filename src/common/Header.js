@@ -6,6 +6,10 @@ export const Header = {
     const path = location.pathname;
     const isLoggedIn = state.user;
 
+    const currentNavMenu = (menu) => {
+      return path === menu ? "text-blue-600 font-bold" : "text-gray-600";
+    };
+
     const handleClick = (event) => {
       if (event.target.id === "logout") {
         event.preventDefault();
@@ -19,9 +23,9 @@ export const Header = {
 
     const loggedInNav = isLoggedIn
       ? /*html*/ `
-              <li><a href="/profile" data-link class=${path === "/profile" ? "text-blue-600" : "text-gray-600"}>프로필</a></li>
+              <li><a href="/profile" data-link class="${currentNavMenu("/profile")}">프로필</a></li>
               <li><a href="#" id="logout" class="text-gray-600">로그아웃</a></li>`
-      : /*html*/ `<li><a href="/login" data-link class=${path === "/login" ? "text-blue-600" : "text-gray-600"}>로그인</a></li>`;
+      : /*html*/ `<li><a href="/login" data-link class="text-gray-600">로그인</a></li>`;
 
     return /*html*/ `
       <div>
@@ -30,7 +34,7 @@ export const Header = {
           </header>
           <nav class="bg-white shadow-md p-2 sticky top-14">
             <ul class="flex justify-around">
-              <li><a href="/" data-link class=${path === "/" ? "text-blue-600" : "text-gray-600"}>홈</a></li>
+              <li><a href="/" data-link class="${currentNavMenu("/")}">홈</a></li>
               ${loggedInNav}
             </ul>
           </nav>
