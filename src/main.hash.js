@@ -1,4 +1,5 @@
 import { Footer } from "./common/Footer";
+const base = import.meta.env.BASE_URL; // Vite가 제공하는 환경변수
 
 const Header = () => {
   const path = location.hash;
@@ -10,9 +11,9 @@ const Header = () => {
 
   const loggedInNav = isLoggedIn
     ? /*html*/ `
-              <li><a href="#/profile" data-link class="${currentNavMenu("#/profile")}">프로필</a></li>
+              <li><a href="${base}#/profile" data-link class="${currentNavMenu("#/profile")}">프로필</a></li>
               <li><a href="#" id="logout" class="text-gray-600">로그아웃</a></li>`
-    : /*html*/ `<li><a href="#/login" data-link class="text-gray-600">로그인</a></li>`;
+    : /*html*/ `<li><a href="${base}#/login" data-link class="text-gray-600">로그인</a></li>`;
   return /*html*/ `
 <div>
           <header class="bg-blue-600 text-white p-4 sticky top-0">
@@ -20,7 +21,7 @@ const Header = () => {
           </header>
           <nav class="bg-white shadow-md p-2 sticky top-14">
             <ul class="flex justify-around">
-              <li><a href="#/" data-link class="${currentNavMenu("#/")}">홈</a></li>
+              <li><a href="${base}#/" data-link class="${currentNavMenu("#/")}">홈</a></li>
               ${loggedInNav}
             </ul>
           </nav>
