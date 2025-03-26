@@ -6,7 +6,7 @@
         </div>
     `},n="/front_5th_chapter1-1/",i=()=>{const e=location.hash,s=JSON.parse(localStorage.getItem("user")),l=t=>e===t?"text-blue-600 font-bold":"text-gray-600",r=s?`
               <li><a href="${n}#/profile" data-link class="${l("#/profile")}">프로필</a></li>
-              <li><a href="${n}#" id="logout" data-link class="text-gray-600">로그아웃</a></li>`:`<li><a href="${n}#/login" data-link class="text-gray-600">로그인</a></li>`;return`
+              <li><a href="${n}#/login" id="logout" data-link class="text-gray-600">로그아웃</a></li>`:`<li><a href="${n}#/login" data-link class="text-gray-600">로그인</a></li>`;return`
 <div>
           <header class="bg-blue-600 text-white p-4 sticky top-0">
             <h1 class="text-2xl font-bold">항해플러스</h1>
