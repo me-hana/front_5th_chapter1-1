@@ -1,12 +1,12 @@
-(function(){const l=document.createElement("link").relList;if(l&&l.supports&&l.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))r(e);new MutationObserver(e=>{for(const s of e)if(s.type==="childList")for(const a of s.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&r(a)}).observe(document,{childList:!0,subtree:!0});function o(e){const s={};return e.integrity&&(s.integrity=e.integrity),e.referrerPolicy&&(s.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?s.credentials="include":e.crossOrigin==="anonymous"?s.credentials="omit":s.credentials="same-origin",s}function r(e){if(e.ep)return;e.ep=!0;const s=o(e);fetch(e.href,s)}})();const b={getHtml:()=>`
+(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))a(t);new MutationObserver(t=>{for(const l of t)if(l.type==="childList")for(const r of l.addedNodes)r.tagName==="LINK"&&r.rel==="modulepreload"&&a(r)}).observe(document,{childList:!0,subtree:!0});function o(t){const l={};return t.integrity&&(l.integrity=t.integrity),t.referrerPolicy&&(l.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?l.credentials="include":t.crossOrigin==="anonymous"?l.credentials="omit":l.credentials="same-origin",l}function a(t){if(t.ep)return;t.ep=!0;const l=o(t);fetch(t.href,l)}})();const b={getHtml:()=>`
       <div>
           <footer class="bg-gray-200 p-4 text-center">
             <p>&copy; 2024 항해플러스. All rights reserved.</p>
           </footer>
         </div>
-    `},i="/front_5th_chapter1-1/",p=()=>{const t=location.hash,l=JSON.parse(localStorage.getItem("user")),o=e=>t===e?"text-blue-600 font-bold":"text-gray-600",r=l?`
+    `},i="/front_5th_chapter1-1/",p=()=>{const e=location.hash,s=JSON.parse(localStorage.getItem("user")),o=t=>e===t?"text-blue-600 font-bold":"text-gray-600",a=s?`
               <li><a href="${i}#/profile" data-link class="${o("#/profile")}">프로필</a></li>
-              <li><a href="#" id="logout" class="text-gray-600">로그아웃</a></li>`:`<li><a href="${i}#/login" data-link class="text-gray-600">로그인</a></li>`;return`
+              <li><a href="#" id="logout" data-link class="text-gray-600">로그아웃</a></li>`:`<li><a href="${i}#/login" data-link class="text-gray-600">로그인</a></li>`;return`
 <div>
           <header class="bg-blue-600 text-white p-4 sticky top-0">
             <h1 class="text-2xl font-bold">항해플러스</h1>
@@ -14,7 +14,7 @@
           <nav class="bg-white shadow-md p-2 sticky top-14">
             <ul class="flex justify-around">
               <li><a href="${i}#/" data-link class="${o("#/")}">홈</a></li>
-              ${r}
+              ${a}
             </ul>
           </nav>
       </div>
@@ -154,16 +154,16 @@
       </a>
     </div>
   </main>
-`,d=()=>{let t={username:"",password:""};return`
+`,d=()=>{let e={username:"",password:""};return`
     <main class="bg-gray-100 flex items-center justify-center min-h-screen">
       <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">항해플러스</h1>
         <form id="login-form">
           <div class="mb-4">
-            <input id="username" type="text" placeholder="사용자 이름" class="w-full p-2 border rounded" value="${t.username}">
+            <input id="username" type="text" placeholder="사용자 이름" class="w-full p-2 border rounded" value="${e.username}">
           </div>
           <div class="mb-6">
-            <input id="password" type="password" placeholder="비밀번호" class="w-full p-2 border rounded" value="${t.password}">
+            <input id="password" type="password" placeholder="비밀번호" class="w-full p-2 border rounded" value="${e.password}">
           </div>
           <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded font-bold">로그인</button>
         </form>
@@ -176,7 +176,7 @@
         </div>
       </div>
     </main>
-`},g=()=>{let t={username:"",email:"",bio:"",...JSON.parse(localStorage.getItem("user"))};return`
+`},g=()=>{let e={username:"",email:"",bio:"",...JSON.parse(localStorage.getItem("user"))};return`
   <div id="root">
     <div class="bg-gray-100 min-h-screen flex justify-center">
       <div class="max-w-md w-full">
@@ -208,7 +208,7 @@
                   type="text"
                   id="username"
                   name="username"
-                  value="${t.username}"
+                  value="${e.username}"
                   class="w-full p-2 border rounded"
                 />
               </div>
@@ -222,7 +222,7 @@
                   type="email"
                   id="email"
                   name="email"
-                  value="${t.email}"
+                  value="${e.email}"
                   class="w-full p-2 border rounded"
                 />
               </div>
@@ -237,7 +237,7 @@
                   name="bio"
                   rows="4"
                   class="w-full p-2 border rounded"
-                >${t.bio}</textarea>
+                >${e.bio}</textarea>
               </div>
               <button
                 type="submit"
@@ -255,4 +255,4 @@
       </div>
     </div>
   </div>
-`},h={"#/":n,"#/login":d,"#/profile":g},c=()=>{if(!location.hash||location.hash==="#"){location.hash="#/";return}const t=location.hash||"#/",l=h[t],o=JSON.parse(localStorage.getItem("user"));if(l)if(location.hash==="#/login"&&o){document.querySelector("#root").innerHTML=n();return}else if(location.hash==="#/profile"&&!o){document.querySelector("#root").innerHTML=d();return}else{document.querySelector("#root").innerHTML=l();return}else{document.querySelector("#root").innerHTML=f();return}};window.addEventListener("hashchange",c);window.addEventListener("DOMContentLoaded",c);const v=t=>{t.target.id==="logout"&&(t.preventDefault(),localStorage.removeItem("userInfo"),location.hash="#/login")},x=t=>{var l,o,r,e;if(t.preventDefault(),t.target.id==="profile-form"){const s=((l=document.querySelector("#username"))==null?void 0:l.value.trim())||"",a=((o=document.querySelector("#email"))==null?void 0:o.value.trim())||"",u=((r=document.querySelector("#bio"))==null?void 0:r.value.trim())||"",m={username:s,email:a,bio:u};localStorage.setItem("user",JSON.stringify(m))}else if(t.target.id==="login-form"){const a={username:((e=document.querySelector("#username"))==null?void 0:e.value.trim())||"",email:"",bio:""};localStorage.setItem("user",JSON.stringify(a)),location.hash="#/"}};document.addEventListener("click",v);document.addEventListener("submit",x);
+`},h={"#/":n,"#/login":d,"#/profile":g},c=()=>{if(!location.hash||location.hash==="#"){location.hash="#/";return}const e=location.hash||"#/",s=h[e],o=JSON.parse(localStorage.getItem("user"));if(s)if(location.hash==="#/login"&&o){document.querySelector("#root").innerHTML=n();return}else if(location.hash==="#/profile"&&!o){document.querySelector("#root").innerHTML=d();return}else{document.querySelector("#root").innerHTML=s();return}else{document.querySelector("#root").innerHTML=f();return}};window.addEventListener("hashchange",c);window.addEventListener("DOMContentLoaded",c);const v=e=>{e.target.id==="logout"&&(e.preventDefault(),localStorage.removeItem("userInfo"),location.hash="#/login")};document.addEventListener("click",e=>{const s=e.target.closest("a[data-link]");if(s){e.preventDefault();const a=s.getAttribute("href").split("#")[1];location.hash=a?`#${a}`:"#/"}});const x=e=>{var s,o,a,t;if(e.preventDefault(),e.target.id==="profile-form"){const l=((s=document.querySelector("#username"))==null?void 0:s.value.trim())||"",r=((o=document.querySelector("#email"))==null?void 0:o.value.trim())||"",u=((a=document.querySelector("#bio"))==null?void 0:a.value.trim())||"",m={username:l,email:r,bio:u};localStorage.setItem("user",JSON.stringify(m))}else if(e.target.id==="login-form"){const r={username:((t=document.querySelector("#username"))==null?void 0:t.value.trim())||"",email:"",bio:""};localStorage.setItem("user",JSON.stringify(r)),location.hash="#/"}};document.addEventListener("click",v);document.addEventListener("submit",x);
