@@ -322,16 +322,12 @@ window.addEventListener("DOMContentLoaded", router);
 
 const handleClick = (event) => {
   if (event.target.id === "logout") {
-    console.log("여기로 1");
-
     event.preventDefault();
     location.hash = "#/login";
-    localStorage.removeItem("userInfo");
+    localStorage.removeItem("user");
   } else {
-    console.log("여기로 2");
     const anchor = event.target.closest("a[data-link]");
     if (anchor) {
-      console.log("여기로 3");
       event.preventDefault();
       const href = anchor.getAttribute("href");
       const hash = href.split("#")[1]; // ex: "/profile"
