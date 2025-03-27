@@ -12,7 +12,7 @@ const Header = () => {
   const loggedInNav = isLoggedIn
     ? /*html*/ `
               <li><a href="${base}#/profile" data-link class="${currentNavMenu("#/profile")}">프로필</a></li>
-              <li><a href="#" id="logout" class="text-gray-600">로그아웃</a></li>`
+              <li><a href="${base}#/login" id="logout" class="text-gray-600">로그아웃</a></li>`
     : /*html*/ `<li><a href="${base}#/login" data-link class="text-gray-600">로그인</a></li>`;
   return /*html*/ `
 <div>
@@ -164,7 +164,7 @@ const ErrorPage = () => /*html*/ `
       <p class="text-gray-600 mb-8">
         요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.
       </p>
-      <a href="/" class="bg-blue-600 text-white px-4 py-2 rounded font-bold">
+      <a href="${base}#/" data-link class="bg-blue-600 text-white px-4 py-2 rounded font-bold">
         홈으로 돌아가기
       </a>
     </div>
@@ -214,17 +214,7 @@ const ProfilePage = () => {
   <div id="root">
     <div class="bg-gray-100 min-h-screen flex justify-center">
       <div class="max-w-md w-full">
-        <header class="bg-blue-600 text-white p-4 sticky top-0">
-          <h1 class="text-2xl font-bold">항해플러스</h1>
-        </header>
-
-        <nav class="bg-white shadow-md p-2 sticky top-14">
-          <ul class="flex justify-around">
-            <li><a href="/" class="text-gray-600">홈</a></li>
-            <li><a href="/profile" class="text-blue-600">프로필</a></li>
-            <li><a href="#" class="text-gray-600">로그아웃</a></li>
-          </ul>
-        </nav>
+        ${Header()}
 
         <main class="p-4">
           <div class="bg-white p-8 rounded-lg shadow-md">
@@ -311,9 +301,11 @@ const router = () => {
   if (PageComponent) {
     if (location.hash === "#/login" && isLoggedIn) {
       document.querySelector("#root").innerHTML = MainPage();
+      location.hash = "#/";
       return;
     } else if (location.hash === "#/profile" && !isLoggedIn) {
       document.querySelector("#root").innerHTML = LoginPage();
+      location.hash = "#/";
       return;
     } else {
       document.querySelector("#root").innerHTML = PageComponent();
@@ -330,9 +322,22 @@ window.addEventListener("DOMContentLoaded", router);
 
 const handleClick = (event) => {
   if (event.target.id === "logout") {
+    console.log("여기로 1");
+
     event.preventDefault();
-    localStorage.removeItem("userInfo");
     location.hash = "#/login";
+    localStorage.removeItem("userInfo");
+  } else {
+    console.log("여기로 2");
+    const anchor = event.target.closest("a[data-link]");
+    if (anchor) {
+      console.log("여기로 3");
+      event.preventDefault();
+      const href = anchor.getAttribute("href");
+      const hash = href.split("#")[1]; // ex: "/profile"
+
+      location.hash = hash ? `#${hash}` : `#/`;
+    }
   }
 };
 
